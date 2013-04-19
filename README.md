@@ -19,3 +19,6 @@ Returns a 500 status code and error message if an exception was thrown.
 Tests whether the session scope is available. Attemps are made to read/write from the session scope.
 Returns "true" if the session scope could be written to (and read from).
 Returns an error message (and 500 status code) if not.
+
+## Running
+Just call any .cfm file (listed above). Nothing else needs doing :)
