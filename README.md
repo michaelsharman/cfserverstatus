@@ -1,6 +1,6 @@
 # ColdFusion status page(s)
 
-The scripts here can be used to help test the health of ColdFusion/Railo application server(s). You can either use them adhoc or set them up as part of your nagios (etc) reporting.
+The scripts here can be used to help test the health of ColdFusion/Railo application server(s). You can either use them ad hoc or set them up as part of your nagios (etc) reporting.
 
 ## Configuration
 This package should be loaded as a separate vhost, within an application server environment. Each script is self contained (has no dependencies) and can be run either independantly or as a suite.
