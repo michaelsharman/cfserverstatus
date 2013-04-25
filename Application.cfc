@@ -4,7 +4,7 @@ component
 	this.name = "status-check";
 	this.applicationTimeout = createTimeSpan(0,2,0,0);
 	this.sessionManagement = true;
-	this.setClientCookies = false;
+	this.setClientCookies = true;
 	this.clientManagement = false;
 	this.scriptProtect = "cgi,cookies,url";
 

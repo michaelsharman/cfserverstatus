@@ -26,6 +26,14 @@ Makes a cfhttp HEAD request to google
 * Returns - "true" if a connection was made and the status code was either 200 or 302. Returns the actual status code if other
 * Returns - a 500 status code and error message if an exception was thrown
 
+### serversessions.cfm
+Returns a count (Int) of the number of active sessions on the node/instance
+
+* Purpose - Checks the amount of active sessions
+* Returns - An integer count, or if `checkAppSpecificSessions` is true a JSON packet including the count of
+sessions in an application specific scope
+* Returns - a 500 status code and error message if an exception was thrown
+
 ### session.cfm
 Attemps are made to read/write from the session scope.
 
