@@ -1,39 +1,34 @@
 <cfsetting enablecfoutputonly="true">
 
 <cfscript>
-	// Returns a count (Int) of the number of active sessions on the node/instance
-	// If `checkAppSpecificSessions` is true, set an `appName` to also return a count
-	// from within a specific application scope. In this case the return object will be a
-	// JSON packet:
-	// 	{"nodeSessions":n,"applicationSessions":n}
+	// Returns a count (Int) of the number of active sessions for a specific application on the node/instance
+	// You must add your `targetAppName` and `nodeServerPwd` (Railo server password)
 	try
 	{
-		// Do you want to also test within a specific application scope?
-		checkAppSpecificSessions = false;
-		// The name of the application on this node/instance that you want session information for (if checkAppSpecificSessions == true)
-		appName = "myappname";
+		targetAppName = "programbuilder";
+		nodeServerPwd = "<railo server password>";
 
-		sessionTracker = createObject("java", "coldfusion.runtime.SessionTracker");
-		// Total number of sessions on this node/instance (includes all applications that may be running)
-		numNodeSessions = sessionTracker.getSessionCount();
+		// Retrieve all the web config/contexts for this instance
+		configs = getPageContext().getConfig().getConfigServer(nodeServerPwd).getConfigWebs();
+		output = "";
+		targetAppFound = false;
 
-		if (checkAppSpecificSessions)
+		for(config in configs)
 		{
-			// Structure of sessions for a specific application
-			appSessions = sessionTracker.getSessionCollection(appName);
-			// Total number of sessions per `application` running on a single node/instance
-			numAppSessions = structCount(appSessions);
-
-			output = {
-				"applicationSessions": numAppSessions,
-				"nodeSessions": numNodeSessions
+			// Retrieve all the application scopes active on this config/context
+			appScopes = config.getFactory().getScopeContext().getAllApplicationScopes();
+			if (structKeyExists(appScopes, targetAppName))
+			{
+				//sessionScopes = config.getFactory().getScopeContext().getAllSessionScopes(targetAppName);
+				output = config.getFactory().getScopeContext().getSessionCount(getPageContext());
+				targetAppFound = true;
+				break;
 			}
 		}
-		else
+		if (!targetAppFound)
 		{
-			output = numNodeSessions;
+			output = "I didn't find any applications running that match '#targetAppName#'";
 		}
-
 	}
 	catch (any e)
 	{
@@ -41,5 +36,5 @@
 		getPageContext().getResponse().setstatus(500);
 	}
 
-	writeOutput(serializeJSON(output));
+	writeOutput(output);
 </cfscript>
