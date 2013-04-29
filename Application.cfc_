@@ -1,6 +1,9 @@
 component
 {
 
+	// Removing the trailing understore in the filename if you want these scripts to run outside of a target WEB-INF
+	// eg sessioncount_external.cfm
+
 	this.name = "status-check";
 	this.applicationTimeout = createTimeSpan(0,2,0,0);
 	this.sessionManagement = true;

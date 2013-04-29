@@ -26,16 +26,27 @@ Makes a cfhttp HEAD request to google
 * Returns - "true" if a connection was made and the status code was either 200 or 302. Returns the actual status code if other
 * Returns - a 500 status code and error message if an exception was thrown
 
-### serversessions.cfm
-Returns a count (Int) of the number of active sessions on the node/instance
+### server_info.cfm
+Returns a ColdFusion structure (dump)
+
+* Purpose - Check Java memory usage and application information
+
+### sessioncount_external.cfm
+Returns a count (Int) of the number of active sessions on the node/instance where the script is run outside of the target WEB-INF
 
 * Purpose - Checks the amount of active sessions
-* Returns - An integer count, or if `checkAppSpecificSessions` is true a JSON packet including the count of
-sessions in an application specific scope
+* Returns - An integer count of sessions in an application specific scope
 * Returns - a 500 status code and error message if an exception was thrown
 
-### session.cfm
-Attemps are made to read/write from the session scope.
+### sessioncount_internal.cfm
+Returns a count (Int) of the number of active sessions on the same WEB-INF
+
+* Purpose - Checks the amount of active sessions
+* Returns - An integer count of sessions in the current application scope
+* Returns - a 500 status code and error message if an exception was thrown
+
+### sessions_enabled.cfm
+Attempts are made to read/write from the session scope.
 
 * Purpose - Tests whether the session scope is available
 * Returns - "true" if the session scope could be written to (and read from)

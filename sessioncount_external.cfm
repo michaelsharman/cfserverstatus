@@ -2,10 +2,11 @@
 
 <cfscript>
 	// Returns a count (Int) of the number of active sessions for a specific application on the node/instance
+	// This script is run outside the application WEB-INF you want to track, but within the same node/instance.
 	// You must add your `targetAppName` and `nodeServerPwd` (Railo server password)
 	try
 	{
-		targetAppName = "programbuilder";
+		targetAppName = "<app name>";
 		nodeServerPwd = "<railo server password>";
 
 		// Retrieve all the web config/contexts for this instance
@@ -19,8 +20,8 @@
 			appScopes = config.getFactory().getScopeContext().getAllApplicationScopes();
 			if (structKeyExists(appScopes, targetAppName))
 			{
-				//sessionScopes = config.getFactory().getScopeContext().getAllSessionScopes(targetAppName);
-				output = config.getFactory().getScopeContext().getSessionCount(getPageContext());
+				output = structCount(config.getFactory().getScopeContext().getAllSessionScopes(targetAppName));	// Railo 3.x
+				//output = config.getFactory().getScopeContext().getSessionCount(getPageContext());	Railo 4.x
 				targetAppFound = true;
 				break;
 			}
