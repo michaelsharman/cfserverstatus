@@ -4,6 +4,8 @@
 	// Returns a count (Int) of the number of active sessions for a specific application on the node/instance
 	// This script is run outside the application WEB-INF you want to track, but within the same node/instance.
 	// You must add your `targetAppName` and `nodeServerPwd` (Railo server password)
+    // You man need to enable `Application.cfc_` (ie remove the trailing underscore) to prevent the application
+    // server bubbling up to find an Application.cfc
 	try
 	{
 		targetAppName = "<app name>";
